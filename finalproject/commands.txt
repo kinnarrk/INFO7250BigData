@@ -1,3 +1,9 @@
+IMP Commands:
+
+If Namenode goes to safe mode =>
+hdfs dfsadmin -safemode leave
+
+==================
 Task 1 
 
 hadoop fs -rm -r /project/Top10SourceDestinations
@@ -6,9 +12,9 @@ hadoop fs -rm -r /project/temp/topnintermediate
 //change 2008.csv to flights.csv
 hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.top10_busy_airports.TopNApp /project/input/2008.csv /project
 
+hadoop fs -cat /project/Top10SourceDestinations/part-r-00000
 
 ===================
-
 Task 2
 
 hadoop fs -rm -r /project/UniqueCarriersWithNames
@@ -18,3 +24,22 @@ hadoop fs -rm -r /project/temp/carriersintermediate
 hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp /project/input/2008.csv /project
 
 hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp2 /project /project/input/carriers.csv /project/UniqueCarriersWithNames
+
+hadoop fs -cat /project/UniqueCarriersWithNames/part-r-00000
+
+===================
+Task 3
+
+hadoop fs -rm -r /project/YearlyDelayCancel
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.yearly_delay.YearlyDelayApp /project/input/flights.csv /project/YearlyDelayCancel
+
+hadoop fs -cat /project/YearlyDelayCancel/part-r-00000
+
+===================
+Task 4
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.carrier_delay_cancel.CarrierDelayCancelApp /project/input/flights.csv /project/input/carriers.csv /project/CarriersDelayCancel
+
+hadoop fs -cat /project/CarriersDelayCancel/part-r-00000
+
