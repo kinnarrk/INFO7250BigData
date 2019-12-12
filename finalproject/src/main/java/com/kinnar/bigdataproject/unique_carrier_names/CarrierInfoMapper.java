@@ -21,7 +21,7 @@ public class CarrierInfoMapper extends Mapper<LongWritable, Text, Text, Text> {
         String nkey = data[0].replace("\"", "");
         System.out.println("Akey:"+nkey+":");
         word.set(nkey);
-        String out= "A"+data[1];	//left table
+        String out= "A"+data[1].replace("\"", "");	//left table        
         context.write(word, new Text(out));
     }
 }
