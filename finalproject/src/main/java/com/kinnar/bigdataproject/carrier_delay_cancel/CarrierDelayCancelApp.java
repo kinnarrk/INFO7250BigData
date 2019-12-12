@@ -39,7 +39,7 @@ public class CarrierDelayCancelApp
 		if (hdfs.exists(temp)) {
 		    hdfs.delete(temp, true);
 		}
-		Path output = new Path("/project/CarriersDelayCancel");
+		Path output = new Path(args[2]);
 		// delete existing directory
 		if (hdfs.exists(output)) {
 		    hdfs.delete(output, true);
@@ -94,7 +94,7 @@ public class CarrierDelayCancelApp
 		job2.setOutputKeyClass(Text.class);
         job2.setOutputValueClass(Text.class);
 		
-        TextOutputFormat.setOutputPath(job2, new Path(args[2]));
+        TextOutputFormat.setOutputPath(job2, output);
 //		FileOutputFormat.setOutputPath(job2, outputPath);
 //        outputPath.getFileSystem(conf2).delete(outputPath);
         System.exit(job2.waitForCompletion(true) ? 0 : 1);

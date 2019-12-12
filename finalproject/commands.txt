@@ -3,6 +3,9 @@ IMP Commands:
 If Namenode goes to safe mode =>
 hdfs dfsadmin -safemode leave
 
+Remove first line from csv
+sed -i '1d' filename.csv
+
 ==================
 Task 1 
 
@@ -42,4 +45,11 @@ Task 4
 hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.carrier_delay_cancel.CarrierDelayCancelApp /project/input/flights.csv /project/input/carriers.csv /project/CarriersDelayCancel
 
 hadoop fs -cat /project/CarriersDelayCancel/part-r-00000
+
+===================
+Task 5
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.daily_delay_cancel.DailyDelayCancelApp /project/input/flights.csv /project/DailyDelayCancel
+
+hadoop fs -cat /project/DailyDelayCancel/part-r-00000
 
