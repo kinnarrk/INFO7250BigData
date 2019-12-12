@@ -1,0 +1,20 @@
+Task 1 
+
+hadoop fs -rm -r /project/Top10SourceDestinations
+hadoop fs -rm -r /project/temp/topnintermediate
+
+//change 2008.csv to flights.csv
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.top10_busy_airports.TopNApp /project/input/2008.csv /project
+
+
+===================
+
+Task 2
+
+hadoop fs -rm -r /project/UniqueCarriersWithNames
+hadoop fs -rm -r /project/temp/carriersintermediate
+
+//change 2008.csv to flights.csv
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp /project/input/2008.csv /project
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp2 /project /project/input/carriers.csv /project/UniqueCarriersWithNames
