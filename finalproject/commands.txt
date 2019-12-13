@@ -6,6 +6,13 @@ hdfs dfsadmin -safemode leave
 Remove first line from csv
 sed -i '1d' filename.csv
 
+//imp for hive
+https://askubuntu.com/questions/1073035/failed-hiveexception-java-lang-runtimeexception-unable-to-instantiate-org-apac
+
+//If hive commands are not executing. Exit and execute this command and again enter in hive shell
+rm metastore_db/*.lck
+
+
 ==================
 Task 1 
 
