@@ -1,0 +1,49 @@
+create schema FlightSchema;
+
+use FlightSchema;
+
+SET hive.exec.dynamic.partition = true;
+SET hive.exec.dynamic.partition.mode = nonstrict;
+
+---
+create external table flights(Year INT, Month INT, DayofMonth INT, DayOfWeek INT, DepTime INT, CRSDepTime INT, ArrTime INT, CRSArrTime INT, UniqueCarrier String, FlightNum INT, TailNum String, ActualElapsedTime INT, CRSElapsedTime INT, AirTime INT, ArrDelay INT, DepDelay INT, Origin String, Dest String, Distance INT, TaxiIn INT, TaxiOut INT, Cancelled INT, CancellationCode String, Diverted String, CarrierDelay INT, WeatherDelay INT, NASDelay INT, SecurityDelay INT, LateAircraftDelay INT ) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+LOAD DATA INPATH '/project/input/flights.csv' OVERWRITE INTO TABLE flights;
+
+---
+create external table airports (Iata String, aiport String, city String, state String, country String, lat String, longi String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ;
+
+LOAD DATA INPATH '/project/input/airports.csv' OVERWRITE INTO TABLE airports;
+Loading data to table flightschema.airports
+
+---
+create external table carriers (Code String, Description String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ;
+
+LOAD DATA INPATH '/project/input/carriers.csv' OVERWRITE INTO TABLE carriers;
+Loading data to table flightschema.carriers
+
+---
+INSERT OVERWRITE DIRECTORY '/project/hive/1' select count(*) from flights where AirTime > 500;
+
+---
+INSERT OVERWRITE DIRECTORY '/project/hive/2' select count(*) from flights where AirTime >= 500;
+
+---
+INSERT OVERWRITE DIRECTORY '/project/hive/3' Select carriers.description, uniqCount.countCancelled, uniqCount.countCarrier from (Select UniqueCarrier, sum(cancelled) as countCancelled, count(*) as countCarrier from flights group by UniqueCarrier) AS uniqCount, carriers where carriers.code = uniqCount.UniqueCarrier;
+
+---
+INSERT OVERWRITE DIRECTORY '/project/hive/4' 
+select a.Iata, a.airport, a.city, a.state, a.lat, a.longi, f.Origin, f.Dest, count(*) cnt, b.Iata, b.airport, b.city, b.state, b.lat, b.longi
+FROM airports a 
+JOIN flights f ON (a.Iata = f.Origin)
+JOIN airports b ON (b.Iata = f.Dest)
+WHERE f.Origin = 'DEN' AND f.Year = 2018
+GROUP BY f.Origin, f.Dest;
+
+INSERT OVERWRITE DIRECTORY '/project/hive/4' 
+select f.Origin, f.Dest, count(*) cnt
+FROM airports a 
+JOIN flights f ON (a.Iata = f.Origin)
+JOIN airports b ON (b.Iata = f.Dest)
+WHERE f.Origin = 'DEN' AND f.Year = 2018
+GROUP BY f.Origin, f.Dest;
