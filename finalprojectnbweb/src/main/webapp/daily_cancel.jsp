@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Daily Flights Delay</title>
+    <title>Daily Flights Cancellations</title>
 
     <!--header-->
     <jsp:include page="header.jsp" />
@@ -29,15 +29,15 @@
    function drawChart() {
        var dataTable = new google.visualization.DataTable();
        dataTable.addColumn({ type: 'date', id: 'Date' });
-       dataTable.addColumn({ type: 'number', id: 'Delay Percentage' });
+       dataTable.addColumn({ type: 'number', id: 'Cancellation Percentage' });
        dataTable.addRows([
           //[ new Date(2012, 3, 13), 37032 ],
-          <% List<DailyDelayTuple> dailyDelayList = (ArrayList)request.getAttribute("dailyDelayList");
-            for(int i = 0; i < dailyDelayList.size(); i++){
-                DailyDelayTuple obj = (DailyDelayTuple)dailyDelayList.get(i);
+          <% List<DailyDelayTuple> dailyCancelList = (ArrayList)request.getAttribute("dailyCancelList");
+            for(int i = 0; i < dailyCancelList.size(); i++){
+                DailyDelayTuple obj = (DailyDelayTuple)dailyCancelList.get(i);
             
           %>                      
-                [ new Date(<%=obj.getYyyymmdd().substring(0,4)%>, parseInt(<%=obj.getYyyymmdd().substring(4,6)%>)-1, <%=obj.getYyyymmdd().substring(6,8)%>), <%=obj.getDelayPercentage()%> ] <%if(i<dailyDelayList.size()-1){%>,<%}%>
+                [ new Date(<%=obj.getYyyymmdd().substring(0,4)%>, parseInt(<%=obj.getYyyymmdd().substring(4,6)%>)-1, <%=obj.getYyyymmdd().substring(6,8)%>), <%=obj.getCanceledPercentage()%> ] <%if(i<dailyCancelList.size()-1){%>,<%}%>
             
             <%
             }
@@ -47,10 +47,10 @@
        var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
 
        var options = {
-         title: "Daily Flight Delay Percentage",
+         title: "Daily Flight Cancellation Percentage",
          width: 1200,
          height: 2000,
-         colorAxis: {minValue: 0, maxValue: 30,  colors: ['#00FF00', '#FF0000']} 
+         colorAxis: {minValue: 0, maxValue: 10,  colors: ['#00FFFF', '#FF0000']} 
        };
 
        chart.draw(dataTable, options);
@@ -64,7 +64,7 @@
     <div class="wrapper">
         
         <!--sidebar-->
-        <jsp:include page="sidebar.jsp?current=daily_delay" />
+        <jsp:include page="sidebar.jsp?current=daily_cancel" />
         
         <!-- Page Content Holder -->
         <div id="content">

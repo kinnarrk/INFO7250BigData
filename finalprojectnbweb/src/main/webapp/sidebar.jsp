@@ -1,13 +1,13 @@
 <!-- Sidebar Holder -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>INFO 7250</h3>
+                <h3>Kinnar Kansara</h3>
             </div>
             
             <% String current = request.getParameter("current");%>
 
             <ul class="list-unstyled components">
-                <p>Big Data: Kinnar Kansara</p>
+                <p>INFO 7250 : Big Data<br>Final Project</p>
 <!--                <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -38,11 +38,24 @@
                     </ul>
                 </li>-->
                 <li <% if(current.equals("daily_delay")) out.println("class='active'"); else out.println(""); %>>
-                    <a href="/DailyDelayController">Daily Delays</a>
+                    <a href="./DailyDelayController">Daily Delays</a>
                 </li>
-                <li>
-                    <a href="/DailyCancelController">Daily Cancellations</a>
+                <li <% if(current.equals("daily_cancel")) out.println("class='active'"); else out.println(""); %>>
+                    <a href="./DailyCancelController">Daily Cancellations</a>
                 </li>
+                <li <% if(current.equals("daily_flight_vs_delay")) out.println("class='active'"); else out.println(""); %>>
+                    <a href="./DailyTotalFlightsVsDepartureDelay">Daily Flights vs Delay</a>
+                </li>
+                <li <% if(current.equals("yearly_flight_delay")) out.println("class='active'"); else out.println(""); %>>
+                    <a href="./YearlyDelayController">Yearly Flight Delays</a>
+                </li>
+                <li <% if(current.equals("carrier_delay")) out.println("class='active'"); else out.println(""); %>>
+                    <a href="./CarrierDelayController">Flight Delays by Carrier</a>
+                </li>
+                <li <% if(current.equals("top_src_dest_count")) out.println("class='active'"); else out.println(""); %>>
+                    <a href="./TopSrcDestPairController">Top 10 Source Destination</a>
+                </li>
+                
             </ul>
 
             <ul class="list-unstyled CTAs">

@@ -8,6 +8,30 @@
         <servlet-name>DailyDelayController</servlet-name>
         <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.DailyDelayController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DailyCancelController</servlet-name>
+        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.DailyCancelController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DailyTotalFlightsVsDepartureDelay</servlet-name>
+        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.DailyTotalFlightsVsDepartureDelay</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DepartureDelayFlightsController</servlet-name>
+        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.DepartureDelayFlightsController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>YearlyDelayController</servlet-name>
+        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.YearlyDelayController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CarrierDelayController</servlet-name>
+        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.CarrierDelayController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TopSrcDestPairController</servlet-name>
+        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.TopSrcDestPairController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
@@ -15,6 +39,30 @@
     <servlet-mapping>
         <servlet-name>DailyDelayController</servlet-name>
         <url-pattern>/DailyDelayController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DailyCancelController</servlet-name>
+        <url-pattern>/DailyCancelController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DailyTotalFlightsVsDepartureDelay</servlet-name>
+        <url-pattern>/DailyTotalFlightsVsDepartureDelay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartureDelayFlightsController</servlet-name>
+        <url-pattern>/DepartureDelayFlightsController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>YearlyDelayController</servlet-name>
+        <url-pattern>/YearlyDelayController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CarrierDelayController</servlet-name>
+        <url-pattern>/CarrierDelayController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TopSrcDestPairController</servlet-name>
+        <url-pattern>/TopSrcDestPairController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
