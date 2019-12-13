@@ -53,3 +53,10 @@ hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.daily_
 
 hadoop fs -cat /project/DailyDelayCancel/part-r-00000
 
+
+===================
+PIG
+===================
+Task 1
+pig -x local ~/Desktop/proj_dataset/part1.pig
+
