@@ -56,11 +56,16 @@ public class DelayRatioTuple implements Writable{
 
 	@Override
     public String toString() {
-        return  "flightsCount=" + flightsCount +
-                ", delayedFlightsCount=" + delayedFlightsCount +
-                ", delayPercentage=" + String.format("%.2f", delayPercentage) +
-                ", canceledFlightsCount=" + canceledFlightsCount +
-                ", canceledPercentage=" + String.format("%.2f", canceledPercentage);
+//        return  "flightsCount=" + flightsCount +
+//                ", delayedFlightsCount=" + delayedFlightsCount +
+//                ", delayPercentage=" + String.format("%.2f", delayPercentage) +
+//                ", canceledFlightsCount=" + canceledFlightsCount +
+//                ", canceledPercentage=" + String.format("%.2f", canceledPercentage);
+        return  "" + flightsCount +
+                "," + delayedFlightsCount +
+                "," + String.format("%.2f", delayPercentage) +
+                "," + canceledFlightsCount +
+                "," + String.format("%.2f", canceledPercentage);
     }
 
     @Override
