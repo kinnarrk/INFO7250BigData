@@ -6,15 +6,12 @@
 package edu.northeastern.kinnarkansara.finalprojectnbweb.controller;
 
 import edu.northeastern.kinnarkansara.finalprojectnbweb.model.DailyDelayTuple;
-import edu.northeastern.kinnarkansara.finalprojectnbweb.util.CommonUtility;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,7 +26,7 @@ import org.apache.hadoop.fs.Path;
  *
  * @author kinnar
  */
-public class DailyDelayController extends HttpServlet {
+public class DailyTotalFlightsVsDepartureDelay extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,27 +37,24 @@ public class DailyDelayController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    private static CommonUtility _utility = CommonUtility.getUtilityInstance();
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
         List<DailyDelayTuple> dailyDelayList = new ArrayList<>();
-        
+        String button = request.getParameter("button");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet DailyDelayController</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet DailyDelayController at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DailyTotalFlightsVsDepartureDelay</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DailyTotalFlightsVsDepartureDelay at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+            
             Configuration conf = new Configuration();
             conf.addResource(new org.apache.hadoop.fs.Path("/usr/local/bin/hadoop-3.2.1/conf/core-site.xml"));
             conf.addResource(new Path("/usr/local/bin/hadoop-3.2.1/conf/hdfs-site.xml"));
@@ -87,7 +81,7 @@ public class DailyDelayController extends HttpServlet {
                     //Todo here
                     String[] data= line.split("\t");
 //                    System.out.println("data:" + Arrays.toString(data));
-                    if(data.length == 2){
+                    if(data.length == 2 && data[0].startsWith("2008")){
                         String yyyymmdd = data[0];
     //                    Date date = _utility.convertStringToDate(yyyymmdd);
                         String right = data[1];
@@ -125,11 +119,11 @@ public class DailyDelayController extends HttpServlet {
                 br.close();
             }
             
-            RequestDispatcher rd = request.getRequestDispatcher("daily_delay.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("daily_flights_vs_departure_delay.jsp");
             request.setAttribute("dailyDelayList", dailyDelayList);
 //            System.out.println("daily delay list: " + dailyDelayList);
             rd.forward(request, response);
-        }        
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -172,5 +166,3 @@ public class DailyDelayController extends HttpServlet {
     }// </editor-fold>
 
 }
-
-
