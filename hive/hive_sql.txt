@@ -26,7 +26,7 @@ Loading data to table flightschema.carriers
 INSERT OVERWRITE DIRECTORY '/project/hive/1' select count(*) from flights where AirTime > 500;
 
 ---
-INSERT OVERWRITE DIRECTORY '/project/hive/2' select count(*) from flights where AirTime >= 500;
+INSERT OVERWRITE DIRECTORY '/project/hive/2' select Year,Month,DayofMonth,Origin,Dest,AirTime,Distance,TaxiIn,TaxiOut from flightData where DepTime<=CRSDepTime and ArrTime<=CRSArrTime;
 
 ---
 INSERT OVERWRITE DIRECTORY '/project/hive/3' Select carriers.description, uniqCount.countCancelled, uniqCount.countCarrier from (Select UniqueCarrier, sum(cancelled) as countCancelled, count(*) as countCarrier from flights group by UniqueCarrier) AS uniqCount, carriers where carriers.code = uniqCount.UniqueCarrier;
