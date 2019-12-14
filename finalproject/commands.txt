@@ -20,7 +20,7 @@ hadoop fs -rm -r /project/Top10SourceDestinations
 hadoop fs -rm -r /project/temp/topnintermediate
 
 //change 2008.csv to flights.csv
-hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.top10_busy_airports.TopNApp /project/input/2008.csv /project
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.top10_busy_airports.TopNApp /project/input/years /project
 
 hadoop fs -cat /project/Top10SourceDestinations/part-r-00000
 
@@ -31,7 +31,7 @@ hadoop fs -rm -r /project/UniqueCarriersWithNames
 hadoop fs -rm -r /project/temp/carriersintermediate
 
 //change 2008.csv to flights.csv
-hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp /project/input/2008.csv /project
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp /project/input/years /project
 
 hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.unique_carrier_names.CarriersApp2 /project /project/input/carriers.csv /project/UniqueCarriersWithNames
 
@@ -42,24 +42,48 @@ Task 3
 
 hadoop fs -rm -r /project/YearlyDelayCancel
 
-hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.yearly_delay.YearlyDelayApp /project/input/flights.csv /project/YearlyDelayCancel
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.yearly_delay.YearlyDelayApp /project/input/years /project/YearlyDelayCancel
 
 hadoop fs -cat /project/YearlyDelayCancel/part-r-00000
 
 ===================
 Task 4
 
-hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.carrier_delay_cancel.CarrierDelayCancelApp /project/input/flights.csv /project/input/carriers.csv /project/CarriersDelayCancel
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.carrier_delay_cancel.CarrierDelayCancelApp /project/input/years /project/input/carriers.csv /project/CarriersDelayCancel
 
 hadoop fs -cat /project/CarriersDelayCancel/part-r-00000
 
 ===================
 Task 5
 
-hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.daily_delay_cancel.DailyDelayCancelApp /project/input/flights.csv /project/DailyDelayCancel
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.daily_delay_cancel.DailyDelayCancelApp /project/input/years /project/DailyDelayCancel
 
 hadoop fs -cat /project/DailyDelayCancel/part-r-00000
 
+===================
+Task 6
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.avg_dist_carrier.AverageMain /project/input/2008.csv /project/AvgDistAirtime
+
+hadoop fs -cat /project/AvgDistAirtime/part-r-00000
+
+Total Flights, Total Distance, Total Air Time, Average Distance, Average Air Time
+
+===================
+Task 7
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.rms_carrier.RMSMain /project/input/years /project/FlightRMS
+
+hadoop fs -cat /project/FlightRMS/part-r-00000
+
+arrDelay, depDelay, totalFlight, rms
+
+===================
+Task 8
+
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.recommendation_sys.SecondarySortDriver /project/FlightRMS /project/FlightRecommendation
+
+hadoop fs -cat /project/FlightRecommendation/part-r-00000
 
 ===================
 PIG
