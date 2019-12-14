@@ -17,7 +17,7 @@ public class FlightDetailsMapper extends Mapper<LongWritable, Text, Text, Text> 
         
         String newKey = data[0];
         word.set(newKey);
-        System.out.println("Bkey:"+newKey+":");
+		System.out.println("Bkey:"+newKey+":");
         String outValue= "B"+data[1];	//right table
         context.write(word,new Text(outValue));
 	}

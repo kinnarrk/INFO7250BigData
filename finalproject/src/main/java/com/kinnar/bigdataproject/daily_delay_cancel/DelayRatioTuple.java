@@ -3,18 +3,17 @@ package com.kinnar.bigdataproject.daily_delay_cancel;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-
 import org.apache.hadoop.io.Writable;
 
-public class DelayRatioTuple implements Writable{
+public class DelayRatioTuple implements Writable {
 
-	private int flightsCount=0;
-    private int delayedFlightsCount=0;
-    private double delayPercentage =0.0;
-    private int canceledFlightsCount=0;
-    private double canceledPercentage =0.0;
-    
-    public int getFlightsCount() {
+	private int flightsCount = 0;
+	private int delayedFlightsCount = 0;
+	private double delayPercentage = 0.0;
+	private int canceledFlightsCount = 0;
+	private double canceledPercentage = 0.0;
+
+	public int getFlightsCount() {
 		return flightsCount;
 	}
 
@@ -37,7 +36,7 @@ public class DelayRatioTuple implements Writable{
 	public void setDelayPercentage(double delayPercentage) {
 		this.delayPercentage = delayPercentage;
 	}
-	
+
 	public int getCanceledFlightsCount() {
 		return canceledFlightsCount;
 	}
@@ -55,37 +54,35 @@ public class DelayRatioTuple implements Writable{
 	}
 
 	@Override
-    public String toString() {
+	public String toString() {
+//		Commented below for using values easily for graphical representation
 //        return  "flightsCount=" + flightsCount +
 //                ", delayedFlightsCount=" + delayedFlightsCount +
 //                ", delayPercentage=" + String.format("%.2f", delayPercentage) +
 //                ", canceledFlightsCount=" + canceledFlightsCount +
 //                ", canceledPercentage=" + String.format("%.2f", canceledPercentage);
-        return  "" + flightsCount +
-                "," + delayedFlightsCount +
-                "," + String.format("%.2f", delayPercentage) +
-                "," + canceledFlightsCount +
-                "," + String.format("%.2f", canceledPercentage);
-    }
+		return "" + flightsCount + "," + delayedFlightsCount + "," + String.format("%.2f", delayPercentage) + ","
+				+ canceledFlightsCount + "," + String.format("%.2f", canceledPercentage);
+	}
 
-    @Override
-    public void write(DataOutput dataOutput) throws IOException {
-        dataOutput.writeInt(flightsCount);
-        dataOutput.writeInt(delayedFlightsCount);
-        dataOutput.writeDouble(delayPercentage);
-        dataOutput.writeInt(canceledFlightsCount);
-        dataOutput.writeDouble(canceledPercentage);
+	@Override
+	public void write(DataOutput dataOutput) throws IOException {
+		dataOutput.writeInt(flightsCount);
+		dataOutput.writeInt(delayedFlightsCount);
+		dataOutput.writeDouble(delayPercentage);
+		dataOutput.writeInt(canceledFlightsCount);
+		dataOutput.writeDouble(canceledPercentage);
 
-    }
+	}
 
-    @Override
-    public void readFields(DataInput dataInput) throws IOException {
+	@Override
+	public void readFields(DataInput dataInput) throws IOException {
 
-        flightsCount = dataInput.readInt();
-        delayedFlightsCount = dataInput.readInt();
-        delayPercentage = dataInput.readDouble();
-        canceledFlightsCount = dataInput.readInt();
-        canceledPercentage = dataInput.readDouble();
+		flightsCount = dataInput.readInt();
+		delayedFlightsCount = dataInput.readInt();
+		delayPercentage = dataInput.readDouble();
+		canceledFlightsCount = dataInput.readInt();
+		canceledPercentage = dataInput.readDouble();
 
-    }
+	}
 }

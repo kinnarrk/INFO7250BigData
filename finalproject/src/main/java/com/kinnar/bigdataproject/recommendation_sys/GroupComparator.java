@@ -5,10 +5,9 @@
  */
 package com.kinnar.bigdataproject.recommendation_sys;
 
-
 import org.apache.hadoop.io.WritableComparator;
 
-public class GroupComparator extends WritableComparator{
+public class GroupComparator extends WritableComparator {
 
 	protected GroupComparator() {
 		super(CompositeKey.class, true);
@@ -16,11 +15,10 @@ public class GroupComparator extends WritableComparator{
 
 	@Override
 	public int compare(Object a, Object b) {
-		
-		CompositeKey ckw1 = (CompositeKey)a;
-		CompositeKey ckw2 = (CompositeKey)b;
-		
+
+		CompositeKey ckw1 = (CompositeKey) a;
+		CompositeKey ckw2 = (CompositeKey) b;
+
 		return ckw1.getSrcDest().compareTo(ckw2.getSrcDest());
 	}
 }
-	

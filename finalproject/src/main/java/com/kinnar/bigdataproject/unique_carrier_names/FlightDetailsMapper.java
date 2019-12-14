@@ -8,18 +8,17 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 public class FlightDetailsMapper extends Mapper<LongWritable, Text, Text, Text> {
 	Text word = new Text();
-    IntWritable one = new IntWritable(1);
+	IntWritable one = new IntWritable(1);
 
 	@Override
 	public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 		String line = value.toString();
-        String[] data= line.split("\t");
-        
-        String newKey = data[0];
-        word.set(newKey);
-        System.out.println("Bkey:"+newKey+":");
-        String outValue= "B"+data[1];	//right table
-        context.write(word,new Text(outValue));
+		String[] data = line.split("\t");
+
+		String newKey = data[0];
+		word.set(newKey);
+		System.out.println("Bkey:" + newKey + ":");
+		String outValue = "B" + data[1]; // right table
+		context.write(word, new Text(outValue));
 	}
-	
 }

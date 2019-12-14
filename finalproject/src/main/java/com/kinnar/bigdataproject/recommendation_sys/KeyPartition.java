@@ -5,17 +5,16 @@
  */
 package com.kinnar.bigdataproject.recommendation_sys;
 
-
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Partitioner;
 
-public class KeyPartition extends Partitioner<CompositeKey, NullWritable>{
+public class KeyPartition extends Partitioner<CompositeKey, NullWritable> {
 
 	@Override
 	public int getPartition(CompositeKey key, NullWritable value, int numPartitions) {
-		
-		return key.getSrcDest().hashCode()%numPartitions;
-		
+
+		return key.getSrcDest().hashCode() % numPartitions;
+
 	}
 
 }

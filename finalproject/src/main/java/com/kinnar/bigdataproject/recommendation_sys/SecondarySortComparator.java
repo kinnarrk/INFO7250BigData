@@ -5,21 +5,18 @@
  */
 package com.kinnar.bigdataproject.recommendation_sys;
 
-
 import org.apache.hadoop.io.WritableComparable;
 import org.apache.hadoop.io.WritableComparator;
 
 public class SecondarySortComparator extends WritableComparator {
-    
-       protected SecondarySortComparator() {
+
+	protected SecondarySortComparator() {
 		super(CompositeKey.class, true);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public int compare(WritableComparable a, WritableComparable b) {
-            
-         
 
 		CompositeKey ck1 = (CompositeKey) a;
 		CompositeKey ck2 = (CompositeKey) b;
@@ -32,13 +29,11 @@ public class SecondarySortComparator extends WritableComparator {
 
 			String c2 = ck2.getCarrierInfo();
 			Double rms2 = Double.parseDouble(c2.split("\t")[1]);
-			result =  rms1.compareTo(rms2);
-			
+			result = rms1.compareTo(rms2);
+
 		}
 
 		return result;
 	}
 
-	
-	
 }
