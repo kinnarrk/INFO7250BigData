@@ -17,10 +17,6 @@
         <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.DailyTotalFlightsVsDepartureDelay</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DepartureDelayFlightsController</servlet-name>
-        <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.DepartureDelayFlightsController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>YearlyDelayController</servlet-name>
         <servlet-class>edu.northeastern.kinnarkansara.finalprojectnbweb.controller.YearlyDelayController</servlet-class>
     </servlet>
@@ -47,10 +43,6 @@
     <servlet-mapping>
         <servlet-name>DailyTotalFlightsVsDepartureDelay</servlet-name>
         <url-pattern>/DailyTotalFlightsVsDepartureDelay</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DepartureDelayFlightsController</servlet-name>
-        <url-pattern>/DepartureDelayFlightsController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>YearlyDelayController</servlet-name>

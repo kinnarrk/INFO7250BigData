@@ -12,86 +12,86 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Daily Flights Cancellations</title>
+        <title>Daily Flights Cancellations</title>
 
-    <!--header-->
-    <jsp:include page="header.jsp" />
-    
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["calendar"]});
-      google.charts.setOnLoadCallback(drawChart);
+        <!--header-->
+        <jsp:include page="header.jsp" />
 
-   function drawChart() {
-       var dataTable = new google.visualization.DataTable();
-       dataTable.addColumn({ type: 'date', id: 'Date' });
-       dataTable.addColumn({ type: 'number', id: 'Cancellation Percentage' });
-       dataTable.addRows([
-          //[ new Date(2012, 3, 13), 37032 ],
-          <% List<DailyDelayTuple> dailyCancelList = (ArrayList)request.getAttribute("dailyCancelList");
-            for(int i = 0; i < dailyCancelList.size(); i++){
-                DailyDelayTuple obj = (DailyDelayTuple)dailyCancelList.get(i);
-            
-          %>                      
-                [ new Date(<%=obj.getYyyymmdd().substring(0,4)%>, parseInt(<%=obj.getYyyymmdd().substring(4,6)%>)-1, <%=obj.getYyyymmdd().substring(6,8)%>), <%=obj.getCanceledPercentage()%> ] <%if(i<dailyCancelList.size()-1){%>,<%}%>
-            
-            <%
-            }
+        <script type="text/javascript">
+            google.charts.load("current", {packages: ["calendar"]});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn({type: 'date', id: 'Date'});
+                dataTable.addColumn({type: 'number', id: 'Cancellation Percentage'});
+                dataTable.addRows([
+                        //[ new Date(2012, 3, 13), 37032 ],
+            <% List<DailyDelayTuple> dailyCancelList = (ArrayList)request.getAttribute("dailyCancelList");
+                  for (int i = 0; i < dailyCancelList.size(); i++) {
+                      DailyDelayTuple obj = (DailyDelayTuple) dailyCancelList.get(i);
+
             %>
-        ]);
+            [ new Date(<%=obj.getYyyymmdd().substring(0, 4)%>, parseInt(<%=obj.getYyyymmdd().substring(4, 6)%>) - 1, <%=obj.getYyyymmdd().substring(6, 8)%>), <%=obj.getCanceledPercentage()%> ] <%if (i < dailyCancelList.size() - 1) {%>,<%}%>
 
-       var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
+            <%
+                    }
+            %>
+                ]);
 
-       var options = {
-         title: "Daily Flight Cancellation Percentage",
-         width: 1200,
-         height: 2000,
-         colorAxis: {minValue: 0, maxValue: 10,  colors: ['#00FFFF', '#FF0000']} 
-       };
+                var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
 
-       chart.draw(dataTable, options);
-   }
-    </script>
+                var options = {
+                    title: "Daily Flight Cancellation Percentage",
+                    width: 1200,
+                    height: 2000,
+                    colorAxis: {minValue: 0, maxValue: 10, colors: ['#00FFFF', '#FF0000']}
+                };
 
-</head>
+                chart.draw(dataTable, options);
+            }
+        </script>
 
-<body>
+    </head>
 
-    <div class="wrapper">
-        
-        <!--sidebar-->
-        <jsp:include page="sidebar.jsp?current=daily_cancel" />
-        
-        <!-- Page Content Holder -->
-        <div id="content">
+    <body>
 
-            <!--top-->
-            <jsp:include page="top.jsp" />
-            
-            <!--content-->
-            <div id="calendar_basic" class="col-md-12"></div>
-            
-            
-            <!--footer-->
-            <jsp:include page="footer.jsp" />
+        <div class="wrapper">
+
+            <!--sidebar-->
+            <jsp:include page="sidebar.jsp?current=daily_cancel" />
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <!--top-->
+                <jsp:include page="top.jsp" />
+
+                <!--content-->
+                <div id="calendar_basic" class="col-md-12"></div>
+
+
+                <!--footer-->
+                <jsp:include page="footer.jsp" />
+            </div>
         </div>
-    </div>
 
-    <!--footer_scripts-->
-    <jsp:include page="footer_scripts.jsp" />
-    
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
+        <!--footer_scripts-->
+        <jsp:include page="footer_scripts.jsp" />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                    $(this).toggleClass('active');
+                });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

@@ -5,7 +5,6 @@
  */
 package edu.northeastern.kinnarkansara.finalprojectnbweb.util;
 
-
 import java.security.Key;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -30,23 +29,24 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import javax.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.SystemUtils;
+
 /**
  *
  * @author kinnar
  */
 public class CommonUtility {
-    /** start Application version region ########## VERY IMPORTANT ######### */
-    
+
+    /**
+     * start Application version region ########## VERY IMPORTANT #########
+     */
+
 //    public static 
-
-
     /* end  data synchronize host link region */
-
     public DecimalFormat df = new DecimalFormat("0.00");
     public String get_Return_Type = "";
     public static double diff = 0;
     public static double diff_for_penalty = 0;
-    
+
     int prevYear, prevMonth, prevDay, endMonth = 0;
     int curYear, curMonth, curDay;
     private File DB_Error_File = null;
@@ -91,11 +91,12 @@ public class CommonUtility {
         //v 3.7.4 Linux implementation
 //        if(!SystemUtils.IS_OS_WINDOWS)
 //            _Utility_Inst.dirSlash = "/";
-
         return _Utility_Inst;
     }
 
-    /** Creates a new instance of Common_Utility */
+    /**
+     * Creates a new instance of Common_Utility
+     */
     public CommonUtility() {
         _Utility_Inst = this;
         Error_Log();
@@ -138,14 +139,12 @@ public class CommonUtility {
 //      }
 //        return decriptedData;
 //    }
-
-    public void hideTableColumn(JTable table, int index)
-    {
+    public void hideTableColumn(JTable table, int index) {
         table.getColumnModel().getColumn(index).setMinWidth(0);
         table.getColumnModel().getColumn(index).setMaxWidth(0);
         table.getColumnModel().getColumn(index).setWidth(0);
         table.getColumnModel().getColumn(index).setPreferredWidth(0);
-       
+
     }
 //    public static boolean isInternetReachable()
 //    {
@@ -178,21 +177,20 @@ public class CommonUtility {
 //        }
 //        return true;
 //    }
-    public String convertZeroToBlank(String str)
-    {
-        if(str.trim().equals("0"))
-            return " ";
-        else if(str.trim().equals("0.0"))
-            return " ";
-        else if(str.trim().equals("0.00"))
-            return " ";
-        else if(str.trim().equals("0.000"))
-            return " ";
-        else
-            return str;
-    }
 
-    
+    public String convertZeroToBlank(String str) {
+        if (str.trim().equals("0")) {
+            return " ";
+        } else if (str.trim().equals("0.0")) {
+            return " ";
+        } else if (str.trim().equals("0.00")) {
+            return " ";
+        } else if (str.trim().equals("0.000")) {
+            return " ";
+        } else {
+            return str;
+        }
+    }
 
     public String get_CurrentDate() {
         Date TodaysDate = new java.util.Date();
@@ -208,6 +206,7 @@ public class CommonUtility {
 
         return formattedTime;
     }
+
     public String convertDateToYMD(String str) {
 
         String dd = str.substring(0, 2);
@@ -217,6 +216,7 @@ public class CommonUtility {
 
         return str;
     }
+
     public String convertYMDToDate(String str) {
 
         String yyyy = str.substring(0, 4);
@@ -226,13 +226,13 @@ public class CommonUtility {
 
         return str;
     }
-    
+
     public Date convertStringToDate(String dateStr) {
         Date date1 = null;
-        try{
-            date1=new SimpleDateFormat("yyyyMMdd").parse(dateStr);
-        } catch(ParseException e){
-            
+        try {
+            date1 = new SimpleDateFormat("yyyyMMdd").parse(dateStr);
+        } catch (ParseException e) {
+
         }
         return date1;
     }
@@ -266,13 +266,13 @@ public class CommonUtility {
 //
 //            Path = System.getProperty("d:\\") + "\\GeneralError.txt";
             String path = System.getProperty("user.dir");
-            File file = new File(path+"/ErrorLog");
-            if(!file.exists())
+            File file = new File(path + "/ErrorLog");
+            if (!file.exists()) {
                 file.mkdir();
+            }
 
-            String fileName = this.get_CurrentDate()+".txt";
-            this.General_Error_File = new File(path+"/ErrorLog/"+fileName);
-
+            String fileName = this.get_CurrentDate() + ".txt";
+            this.General_Error_File = new File(path + "/ErrorLog/" + fileName);
 
 //            this.General_Error_File = new File(path);
             if (!this.General_Error_File.exists()) {
@@ -297,25 +297,26 @@ public class CommonUtility {
 
     public PrintStream GenErrorFile() {
         try {
-            String Line = "---------------------------:- " + new Date() +" -:---------------------------\r\n";
+            String Line = "---------------------------:- " + new Date() + " -:---------------------------\r\n";
             GenError1.write(Line.toString().getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return GenError1;
     }
-    public void GenErrorFileWithSout(String subject,String msg)
-    {
-         try {
-            String Line = "---------------------------:- " + new Date() +" -:---------------------------\r\n"
-                    + "Subject : "+subject+"\r\n"
-                    + "Message : "+msg+"\r\n";
+
+    public void GenErrorFileWithSout(String subject, String msg) {
+        try {
+            String Line = "---------------------------:- " + new Date() + " -:---------------------------\r\n"
+                    + "Subject : " + subject + "\r\n"
+                    + "Message : " + msg + "\r\n";
             GenError1.write(Line.toString().getBytes());
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public PrintStream GenDBErrorFile() {
         try {
             String Line = "---------------------------:-" + new Date();
@@ -330,7 +331,6 @@ public class CommonUtility {
 //        return (StateProperty.getStateProperty_Instance().get_Year());
 //    }
     //************* To Get and Set Company_ID;
-
     public String get_Company_ID() {
         return String.valueOf(Company_ID).trim();
     }
@@ -510,18 +510,18 @@ public class CommonUtility {
     public Object[] get_EPTaxValues() {
         if (EPTaxValues == null) {
             EPTaxValues = new Object[]{
-                        "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00",
-                        "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00"
-                    };
+                "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00",
+                "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00", "0", "0.00"
+            };
         }
         return EPTaxValues;
     }
 
     public void set_EPTaxValues(Object[] data) {
         EPTaxValues = new Object[]{
-                    data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9],
-                    data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], data[18], data[19]
-                };
+            data[0], data[1], data[2], data[3], data[4], data[5], data[6], data[7], data[8], data[9],
+            data[10], data[11], data[12], data[13], data[14], data[15], data[16], data[17], data[18], data[19]
+        };
     }
 
     public Hashtable getReportingFrq() {
@@ -580,7 +580,6 @@ public class CommonUtility {
 //        }
 //        return Due_Date;
 //    }
-
     public int get_Num_Month(String Month) {
         int Mon = 0;
         for (int i = 0; i < MonthObj.length; i++) {
@@ -615,7 +614,7 @@ public class CommonUtility {
     public String getRoundValue(String val) {
         double firstPart = 0;
         int secondPart = 0;
-        
+
         val = getRoundNumber(Double.parseDouble(val), 2);
         firstPart = Double.parseDouble(val.substring(0, val.length() - 3));
         secondPart = Integer.parseInt(val.substring(val.length() - 2));
@@ -833,7 +832,6 @@ public class CommonUtility {
 //            System.out.println("prevMonth is "+prevMonth+" and curMonth is "+curMonth );
 //            System.out.println("RETURN 2 : " +diff);
 //            System.out.println("And DateDiff is RETURN 2 : " +DateDiff);
-
             return DateDiff;
         } else {
             diff = 0;
@@ -1386,7 +1384,9 @@ public class CommonUtility {
         } //end of else
     }// end of month
 
-    /**  Following method is used to return end date of given month  */
+    /**
+     * Following method is used to return end date of given month
+     */
     public static String getEndDate(String strMonth, int dYear) {
         int monthNo = getMonthNo(strMonth);
 
@@ -1396,7 +1396,10 @@ public class CommonUtility {
         return (tempG.get(java.util.GregorianCalendar.MONTH) + 1) + "-" + tempG.get(java.util.GregorianCalendar.DATE) + "-" + tempG.get(java.util.GregorianCalendar.YEAR);
     }
 
-    /** this method takes input in three letter's of month and return month number , number start from 0  */
+    /**
+     * this method takes input in three letter's of month and return month
+     * number , number start from 0
+     */
     public static int getMonthNo(String strMonth) {
         String mon[] = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
