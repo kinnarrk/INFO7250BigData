@@ -9,29 +9,27 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-
 import java.io.IOException;
 
-public class SecondarySortMapper extends Mapper<LongWritable, Text, CompositeKey, NullWritable>{
+public class SecondarySortMapper extends Mapper<LongWritable, Text, CompositeKey, NullWritable> {
 
-    @Override
-    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-         //To change body of generated methods, choose Tools | Templates.
-         
-         String [] tokens = value.toString().split("\t",2);
+	@Override
+	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+		// To change body of generated methods, choose Tools | Templates.
 
-         try {
-             String srcDest = tokens[0];
-             String carrInfo = tokens[1];
+		String[] tokens = value.toString().split("\t", 2);
 
-             CompositeKey coKey = new CompositeKey(srcDest, carrInfo);
+		try {
+			String srcDest = tokens[0];
+			String carrInfo = tokens[1];
 
-             context.write(coKey, NullWritable.get());
-         }catch(Exception e){
-             e.getStackTrace();
-         }
-         
-    }
-    
-    
+			CompositeKey coKey = new CompositeKey(srcDest, carrInfo);
+
+			context.write(coKey, NullWritable.get());
+		} catch (Exception e) {
+			e.getStackTrace();
+		}
+
+	}
+
 }

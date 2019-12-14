@@ -63,7 +63,7 @@ hadoop fs -cat /project/DailyDelayCancel/part-r-00000
 ===================
 Task 6
 
-hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.avg_dist_carrier.AverageMain /project/input/2008.csv /project/AvgDistAirtime
+hadoop jar ~/Desktop/proj_jars/finalproject.jar com.kinnar.bigdataproject.avg_dist_carrier.AverageMain /project/input/years /project/AvgDistAirtime
 
 hadoop fs -cat /project/AvgDistAirtime/part-r-00000
 

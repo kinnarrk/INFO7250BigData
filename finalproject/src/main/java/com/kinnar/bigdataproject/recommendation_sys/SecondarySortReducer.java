@@ -7,19 +7,18 @@ package com.kinnar.bigdataproject.recommendation_sys;
 
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Reducer;
-
 import java.io.IOException;
 
+public class SecondarySortReducer extends Reducer<CompositeKey, NullWritable, CompositeKey, NullWritable> {
 
-public class SecondarySortReducer extends Reducer<CompositeKey, NullWritable, CompositeKey, NullWritable>{
+	@Override
+	protected void reduce(CompositeKey key, Iterable<NullWritable> values, Context context)
+			throws IOException, InterruptedException {
+		// To change body of generated methods, choose Tools | Templates.
 
-    @Override
-    protected void reduce(CompositeKey key, Iterable<NullWritable> values, Context context) throws IOException, InterruptedException {
-         //To change body of generated methods, choose Tools | Templates.
-         
-         for(NullWritable v:values){
-             context.write(key, v);
-         }
-    }
-    
+		for (NullWritable v : values) {
+			context.write(key, v);
+		}
+	}
+
 }
