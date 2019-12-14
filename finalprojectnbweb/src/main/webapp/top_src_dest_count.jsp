@@ -57,20 +57,20 @@
                     </thead>
                     <tbody>
                         <% List<SrcDestCountTuple> srcDestCountList = (ArrayList)request.getAttribute("srcDestCountList");
-                        for(int i = 0; i < srcDestCountList.size(); i++){
-                            SrcDestCountTuple obj = (SrcDestCountTuple)srcDestCountList.get(i);
-                            
+                            for (int i = 0; i < srcDestCountList.size(); i++) {
+                                SrcDestCountTuple obj = (SrcDestCountTuple) srcDestCountList.get(i);
+
                         %>                        
                         <tr>
-                            <th scope="row"><%=(i+1)%></th>
+                            <th scope="row"><%=(i + 1)%></th>
                             <td><%=obj.getSrc()%></td>
                             <td><%=obj.getDest()%></td>
                             <td><%=obj.getCount()%></td>
                         </tr>                              
-                          <%
-                          }
-                          %>
-                        
+                        <%
+                            }
+                        %>
+
                     </tbody>
                 </table>
                 <!--            <div class="line"></div>

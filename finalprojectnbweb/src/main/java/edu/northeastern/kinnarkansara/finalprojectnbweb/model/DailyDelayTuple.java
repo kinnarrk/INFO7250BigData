@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.northeastern.kinnarkansara.finalprojectnbweb.model;
 
 /**
  *
  * @author kinnar
  */
-public class DailyDelayTuple{
+public class DailyDelayTuple {
+
     private String yyyymmdd = "";
-    private int flightsCount=0;
-    private int delayedFlightsCount=0;
-    private double delayPercentage =0.0;
-    private int canceledFlightsCount=0;
-    private double canceledPercentage =0.0;        
+    private int flightsCount = 0;
+    private int delayedFlightsCount = 0;
+    private double delayPercentage = 0.0;
+    private int canceledFlightsCount = 0;
+    private double canceledPercentage = 0.0;
 
     public String getYyyymmdd() {
         return yyyymmdd;
@@ -24,7 +20,7 @@ public class DailyDelayTuple{
     public void setYyyymmdd(String yyyymmdd) {
         this.yyyymmdd = yyyymmdd;
     }
-    
+
     public int getFlightsCount() {
         return flightsCount;
     }
@@ -63,11 +59,11 @@ public class DailyDelayTuple{
 
     public void setCanceledPercentage(double canceledPercentage) {
         this.canceledPercentage = canceledPercentage;
-    }    
-    
+    }
+
     @Override
-    public String toString(){
-        return this.yyyymmdd + ", " + this.flightsCount + ", " + this.delayedFlightsCount + ", " + this.delayPercentage +
-                ", " + this.canceledFlightsCount + ", " + this.canceledPercentage;
+    public String toString() {
+        return this.yyyymmdd + ", " + this.flightsCount + ", " + this.delayedFlightsCount + ", " + this.delayPercentage
+                + ", " + this.canceledFlightsCount + ", " + this.canceledPercentage;
     }
 }

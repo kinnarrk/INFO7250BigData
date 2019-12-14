@@ -12,86 +12,86 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Daily Flights Delay</title>
+        <title>Daily Flights Delay</title>
 
-    <!--header-->
-    <jsp:include page="header.jsp" />
-    
-    <script type="text/javascript">
-      google.charts.load("current", {packages:["calendar"]});
-      google.charts.setOnLoadCallback(drawChart);
+        <!--header-->
+        <jsp:include page="header.jsp" />
 
-   function drawChart() {
-       var dataTable = new google.visualization.DataTable();
-       dataTable.addColumn({ type: 'date', id: 'Date' });
-       dataTable.addColumn({ type: 'number', id: 'Delay Percentage' });
-       dataTable.addRows([
-          //[ new Date(2012, 3, 13), 37032 ],
-          <% List<DailyDelayTuple> dailyDelayList = (ArrayList)request.getAttribute("dailyDelayList");
-            for(int i = 0; i < dailyDelayList.size(); i++){
-                DailyDelayTuple obj = (DailyDelayTuple)dailyDelayList.get(i);
-            
-          %>                      
-                [ new Date(<%=obj.getYyyymmdd().substring(0,4)%>, parseInt(<%=obj.getYyyymmdd().substring(4,6)%>)-1, <%=obj.getYyyymmdd().substring(6,8)%>), <%=obj.getDelayPercentage()%> ] <%if(i<dailyDelayList.size()-1){%>,<%}%>
-            
-            <%
-            }
+        <script type="text/javascript">
+            google.charts.load("current", {packages: ["calendar"]});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+                var dataTable = new google.visualization.DataTable();
+                dataTable.addColumn({type: 'date', id: 'Date'});
+                dataTable.addColumn({type: 'number', id: 'Delay Percentage'});
+                dataTable.addRows([
+                        //[ new Date(2012, 3, 13), 37032 ],
+            <% List<DailyDelayTuple> dailyDelayList = (ArrayList)request.getAttribute("dailyDelayList");
+                  for (int i = 0; i < dailyDelayList.size(); i++) {
+                      DailyDelayTuple obj = (DailyDelayTuple) dailyDelayList.get(i);
+
             %>
-        ]);
+            [ new Date(<%=obj.getYyyymmdd().substring(0, 4)%>, parseInt(<%=obj.getYyyymmdd().substring(4, 6)%>) - 1, <%=obj.getYyyymmdd().substring(6, 8)%>), <%=obj.getDelayPercentage()%> ] <%if (i < dailyDelayList.size() - 1) {%>,<%}%>
 
-       var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
+            <%
+                    }
+            %>
+                ]);
 
-       var options = {
-         title: "Daily Flight Delay Percentage",
-         width: 1200,
-         height: 2000,
-         colorAxis: {minValue: 0, maxValue: 30,  colors: ['#00FF00', '#FF0000']} 
-       };
+                var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
 
-       chart.draw(dataTable, options);
-   }
-    </script>
+                var options = {
+                    title: "Daily Flight Delay Percentage",
+                    width: 1200,
+                    height: 2000,
+                    colorAxis: {minValue: 0, maxValue: 30, colors: ['#00FF00', '#FF0000']}
+                };
 
-</head>
+                chart.draw(dataTable, options);
+            }
+        </script>
 
-<body>
+    </head>
 
-    <div class="wrapper">
-        
-        <!--sidebar-->
-        <jsp:include page="sidebar.jsp?current=daily_delay" />
-        
-        <!-- Page Content Holder -->
-        <div id="content">
+    <body>
 
-            <!--top-->
-            <jsp:include page="top.jsp" />
-            
-            <!--content-->
-            <div id="calendar_basic" class="col-md-12"></div>
-            
-            
-            <!--footer-->
-            <jsp:include page="footer.jsp" />
+        <div class="wrapper">
+
+            <!--sidebar-->
+            <jsp:include page="sidebar.jsp?current=daily_delay" />
+
+            <!-- Page Content Holder -->
+            <div id="content">
+
+                <!--top-->
+                <jsp:include page="top.jsp" />
+
+                <!--content-->
+                <div id="calendar_basic" class="col-md-12"></div>
+
+
+                <!--footer-->
+                <jsp:include page="footer.jsp" />
+            </div>
         </div>
-    </div>
 
-    <!--footer_scripts-->
-    <jsp:include page="footer_scripts.jsp" />
-    
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-                $(this).toggleClass('active');
+        <!--footer_scripts-->
+        <jsp:include page="footer_scripts.jsp" />
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                    $(this).toggleClass('active');
+                });
             });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>
