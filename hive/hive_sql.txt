@@ -6,7 +6,12 @@ SET hive.exec.dynamic.partition = true;
 SET hive.exec.dynamic.partition.mode = nonstrict;
 
 ---
-create external table flights(Year INT, Month INT, DayofMonth INT, DayOfWeek INT, DepTime INT, CRSDepTime INT, ArrTime INT, CRSArrTime INT, UniqueCarrier String, FlightNum INT, TailNum String, ActualElapsedTime INT, CRSElapsedTime INT, AirTime INT, ArrDelay INT, DepDelay INT, Origin String, Dest String, Distance INT, TaxiIn INT, TaxiOut INT, Cancelled INT, CancellationCode String, Diverted String, CarrierDelay INT, WeatherDelay INT, NASDelay INT, SecurityDelay INT, LateAircraftDelay INT ) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+create external table flights(
+Year INT, Month INT, DayofMonth INT, DayOfWeek INT, DepTime INT, CRSDepTime INT, ArrTime INT, CRSArrTime INT, 
+UniqueCarrier String, FlightNum INT, TailNum String, ActualElapsedTime INT, CRSElapsedTime INT, AirTime INT, ArrDelay INT, DepDelay INT, 
+Origin String, Dest String, Distance INT, TaxiIn INT, TaxiOut INT, Cancelled INT, CancellationCode String, Diverted String, 
+CarrierDelay INT, WeatherDelay INT, NASDelay INT, SecurityDelay INT, LateAircraftDelay INT ) 
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
 
 LOAD DATA INPATH '/project/input/flights.csv' OVERWRITE INTO TABLE flights;
 
@@ -19,17 +24,23 @@ Loading data to table flightschema.airports
 ---
 create external table carriers (Code String, Description String) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' ;
 
+-- Loading data to table flightschema.carriers
 LOAD DATA INPATH '/project/input/carriers.csv' OVERWRITE INTO TABLE carriers;
-Loading data to table flightschema.carriers
 
 ---
-INSERT OVERWRITE DIRECTORY '/project/hive/1' select count(*) from flights where AirTime > 500;
+INSERT OVERWRITE DIRECTORY '/project/hive/1' 
+select count(*) as countFlights from flights as f where f.AirTime > 500;
 
 ---
-INSERT OVERWRITE DIRECTORY '/project/hive/2' select Year,Month,DayofMonth,Origin,Dest,AirTime,Distance,TaxiIn,TaxiOut from flightData where DepTime<=CRSDepTime and ArrTime<=CRSArrTime;
+INSERT OVERWRITE DIRECTORY '/project/hive/2' 
+select DayOfWeek, Month, DayofMonth, Year, Origin, Dest, Distance, TaxiIn, TaxiOut, AirTime from flights 
+where ArrTime <= CRSArrTime and DepTime <= CRSDepTime;
 
 ---
-INSERT OVERWRITE DIRECTORY '/project/hive/3' Select carriers.description, uniqCount.countCancelled, uniqCount.countCarrier from (Select UniqueCarrier, sum(cancelled) as countCancelled, count(*) as countCarrier from flights group by UniqueCarrier) AS uniqCount, carriers where carriers.code = uniqCount.UniqueCarrier;
+INSERT OVERWRITE DIRECTORY '/project/hive/3' 
+Select carriers.description, uniqueCount.countCancelled, uniqueCount.cntCarrier from 
+(Select UniqueCarrier, count(*) as cntCarrier, sum(cancelled) as countCancelled from flights group by UniqueCarrier) AS uniqueCount, carriers 
+where carriers.code = uniqueCount.UniqueCarrier;
 
 ---
 INSERT OVERWRITE DIRECTORY '/project/hive/4' 
