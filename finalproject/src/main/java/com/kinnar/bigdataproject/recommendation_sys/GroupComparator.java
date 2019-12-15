@@ -10,15 +10,15 @@ import org.apache.hadoop.io.WritableComparator;
 public class GroupComparator extends WritableComparator {
 
 	protected GroupComparator() {
-		super(CompositeKey.class, true);
+		super(CompositeKeyMr.class, true);
 	}
 
 	@Override
-	public int compare(Object a, Object b) {
+	public int compare(Object aa, Object bb) {
 
-		CompositeKey ckw1 = (CompositeKey) a;
-		CompositeKey ckw2 = (CompositeKey) b;
+		CompositeKeyMr ckmr1 = (CompositeKeyMr) aa;
+		CompositeKeyMr ckmr2 = (CompositeKeyMr) bb;
 
-		return ckw1.getSrcDest().compareTo(ckw2.getSrcDest());
+		return ckmr1.getSourceDestination().compareTo(ckmr2.getSourceDestination());
 	}
 }

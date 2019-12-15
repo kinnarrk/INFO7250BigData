@@ -1,20 +1,17 @@
 -- Top 10 airports by traffic - only year 2008 data
--- First, load the data
-RAW_DATA = LOAD '/home/kinnar/Desktop/proj_dataset/2008.csv' USING PigStorage(',') AS 
-	(year: int, month: int, day: int, dow: int, 
-	dtime: int, sdtime: int, arrtime: int, satime: int, 
-	carrier: chararray, fn: int, tn: chararray, 
-	etime: int, setime: int, airtime: int, 
-	adelay: int, ddelay: int, 
-	scode: chararray, dcode: chararray, dist: int, 
-	tintime: int, touttime: int, 
+-- First, load data
+DATA = LOAD '/home/kinnar/Desktop/proj_dataset/2008.csv' USING PigStorage(',') AS 
+	(year: int, month: int, day: int, dow: int, dtime: int, sdtime: int, 
+	arrtime: int, satime: int, carrier: chararray, fn: int, tn: chararray, 
+	etime: int, setime: int, airtime: int, adelay: int, ddelay: int, 
+	scode: chararray, dcode: chararray, dist: int, tintime: int, touttime: int, 
 	cancel: chararray, cancelcode: chararray, diverted: int, 
 	cdelay: int, wdelay: int, ndelay: int, sdelay: int, latedelay: int);
 
 
--- INBOUND TRAFFIC, PER MONTH, TOP 10
+-- TOP 10 INBOUND TRAFFIC PER MONTH
 -- projection for only getting useful fields: only month and destination ID
-INBOUND = FOREACH RAW_DATA GENERATE month AS m, dcode AS d;
+INBOUND = FOREACH DATA GENERATE month AS m, dcode AS d;
 -- group by month, then sort ID
 GROUP_INBOUND = GROUP INBOUND BY (m,d);
 -- aggregate and flatten group so that output relation has 3 fields

@@ -11,25 +11,25 @@ import org.apache.hadoop.io.WritableComparator;
 public class SecondarySortComparator extends WritableComparator {
 
 	protected SecondarySortComparator() {
-		super(CompositeKey.class, true);
+		super(CompositeKeyMr.class, true);
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public int compare(WritableComparable a, WritableComparable b) {
+	public int compare(WritableComparable aa, WritableComparable bb) {
 
-		CompositeKey ck1 = (CompositeKey) a;
-		CompositeKey ck2 = (CompositeKey) b;
+		CompositeKeyMr ckmr1 = (CompositeKeyMr) aa;
+		CompositeKeyMr ckmr2 = (CompositeKeyMr) bb;
 
-		int result = ck1.getSrcDest().compareTo(ck2.getSrcDest());
+		int result = ckmr1.getSourceDestination().compareTo(ckmr2.getSourceDestination());
 
 		if (result == 0) {
-			String c1 = ck1.getCarrierInfo();
-			Double rms1 = Double.parseDouble(c1.split("\t")[1]);
+			String cInfo1 = ckmr1.getCarrierInformation();
+			Double rmsVal1 = Double.parseDouble(cInfo1.split("\t")[1]);
 
-			String c2 = ck2.getCarrierInfo();
-			Double rms2 = Double.parseDouble(c2.split("\t")[1]);
-			result = rms1.compareTo(rms2);
+			String cInfo2 = ckmr2.getCarrierInformation();
+			Double rmsVal2 = Double.parseDouble(cInfo2.split("\t")[1]);
+			result = rmsVal1.compareTo(rmsVal2);
 
 		}
 

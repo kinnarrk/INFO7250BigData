@@ -27,11 +27,11 @@ public class RMSMain {
 		}
 
 		// Create a new Job
-		Job job = Job.getInstance(conf, "wordcount");
+		Job job = Job.getInstance(conf, "RMS value for arrival and departure delay");
 		job.setJarByClass(RMSMain.class);
 
 		// Specify various job-specific parameters
-		job.setJobName("myjob");
+		job.setJobName("RMS value for arrival and departure delay");
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job, output);
@@ -40,14 +40,14 @@ public class RMSMain {
 		job.setOutputFormatClass(TextOutputFormat.class);
 
 		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(RMSCountTuple.class);
+		job.setMapOutputValueClass(RMSTuple.class);
 
 		job.setMapperClass(RMSMapper.class);
 		job.setCombinerClass(RMSCombiner.class);
 		job.setReducerClass(RMSReducer.class);
 
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(RMSCountTuple.class);
+		job.setOutputValueClass(RMSTuple.class);
 
 		// Submit the job, then poll for progress until the job is complete
 		System.exit(job.waitForCompletion(true) ? 0 : 1);

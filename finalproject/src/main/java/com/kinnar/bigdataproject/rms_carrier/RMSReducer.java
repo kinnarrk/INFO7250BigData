@@ -4,34 +4,34 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 
-public class RMSReducer extends Reducer<Text, RMSCountTuple, Text, RMSCountTuple> {
+public class RMSReducer extends Reducer<Text, RMSTuple, Text, RMSTuple> {
 
-	private RMSCountTuple res = new RMSCountTuple();
+	private RMSTuple rmsTuple = new RMSTuple();
 
 	@Override
-	protected void reduce(Text key, Iterable<RMSCountTuple> values, Context context)
+	protected void reduce(Text key, Iterable<RMSTuple> values, Context context)
 			throws IOException, InterruptedException {
 
-		int total = 0;
-		int arrDelay = 0;
-		int depDelay = 0;
+		int totalFlights = 0;
+		int arrivalDelay = 0;
+		int departureDelay = 0;
 
-		for (RMSCountTuple tup : values) {
-			total += tup.getTotalFlight();
-			arrDelay += tup.getArrDelay();
-			depDelay += tup.getDepDelay();
+		for (RMSTuple tupple : values) {
+			totalFlights += tupple.getTotalFlights();
+			arrivalDelay += tupple.getArrivalDelay();
+			departureDelay += tupple.getDepartureDelay();
 		}
 
-		double avgArrDelay = (double) arrDelay / total;
-		double avgDepDelay = (double) depDelay / total;
+		double avgArrivalDelay = (double) arrivalDelay / totalFlights;
+		double avgDepartureDelay = (double) departureDelay / totalFlights;
 
-		double rms = Math.sqrt((avgArrDelay * avgArrDelay) + (avgDepDelay * avgDepDelay));
+		double rmsValue = Math.sqrt((avgArrivalDelay * avgArrivalDelay) + (avgDepartureDelay * avgDepartureDelay));
 
-		res.setTotalFlight(total);
-		res.setArrDelay(arrDelay);
-		res.setDepDelay(depDelay);
-		res.setRms(rms);
+		rmsTuple.setTotalFlights(totalFlights);
+		rmsTuple.setArrivalDelay(arrivalDelay);
+		rmsTuple.setDepartureDelay(departureDelay);
+		rmsTuple.setRmsVal(rmsValue);
 
-		context.write(key, res);
+		context.write(key, rmsTuple);
 	}
 }

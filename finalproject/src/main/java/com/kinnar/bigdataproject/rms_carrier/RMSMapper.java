@@ -4,9 +4,9 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
-public class RMSMapper extends Mapper<Object, Text, Text, RMSCountTuple> {
+public class RMSMapper extends Mapper<Object, Text, Text, RMSTuple> {
 
-	private RMSCountTuple tuple = new RMSCountTuple();
+	private RMSTuple rmsTuple = new RMSTuple();
 
 	@Override
 	protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
@@ -15,26 +15,26 @@ public class RMSMapper extends Mapper<Object, Text, Text, RMSCountTuple> {
 		if (tokens[0].equals("Year"))
 			return;
 
-		String src = tokens[16];
-		String dest = tokens[17];
-		String carrier = tokens[8];
+		String source = tokens[16];
+		String destination = tokens[17];
+		String carrierCode = tokens[8];
 
-		int arrDelay = 0;
-		int depDelay = 0;
+		int arrivalDelay = 0;
+		int departureDelay = 0;
 
 		try {
-			arrDelay = Integer.parseInt(tokens[14]);
-			depDelay = Integer.parseInt(tokens[15]);
+			arrivalDelay = Integer.parseInt(tokens[14]);
+			departureDelay = Integer.parseInt(tokens[15]);
 		} catch (Exception e) {
 
 		}
 
-		String newKey = src + "-" + dest + "\t" + carrier;
+		String nKey = source + "-" + destination + "\t" + carrierCode;
 
-		tuple.setArrDelay(arrDelay);
-		tuple.setDepDelay(depDelay);
-		tuple.setTotalFlight(1);
+		rmsTuple.setArrivalDelay(arrivalDelay);
+		rmsTuple.setDepartureDelay(departureDelay);
+		rmsTuple.setTotalFlights(1);
 
-		context.write(new Text(newKey), tuple);
+		context.write(new Text(nKey), rmsTuple);
 	}
 }

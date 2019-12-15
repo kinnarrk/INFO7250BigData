@@ -28,26 +28,26 @@ public class SecondarySortDriver {
 			hdfs.delete(outDir, true);
 		}
 
-		Job job = Job.getInstance();
+		Job job1 = Job.getInstance();
 
-		job.setJarByClass(SecondarySortDriver.class);
+		job1.setJarByClass(SecondarySortDriver.class);
 
-		job.setGroupingComparatorClass(GroupComparator.class);
-		job.setSortComparatorClass(SecondarySortComparator.class);
-		job.setPartitionerClass(KeyPartition.class);
+		job1.setGroupingComparatorClass(GroupComparator.class);
+		job1.setSortComparatorClass(SecondarySortComparator.class);
+		job1.setPartitionerClass(KeyPartition.class);
 
-		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileInputFormat.addInputPath(job1, new Path(args[0]));
 //        Path outDir = new Path(args[1]);
-		FileOutputFormat.setOutputPath(job, outDir);
+		FileOutputFormat.setOutputPath(job1, outDir);
 
-		job.setMapperClass(SecondarySortMapper.class);
-		job.setReducerClass(SecondarySortReducer.class);
+		job1.setMapperClass(SecondarySortMapper.class);
+		job1.setReducerClass(SecondarySortReducer.class);
 
-		job.setNumReduceTasks(1);
+		job1.setNumReduceTasks(1);
 
-		job.setOutputKeyClass(CompositeKey.class);
-		job.setOutputValueClass(NullWritable.class);
+		job1.setOutputKeyClass(CompositeKeyMr.class);
+		job1.setOutputValueClass(NullWritable.class);
 
-		job.waitForCompletion(true);
+		job1.waitForCompletion(true);
 	}
 }

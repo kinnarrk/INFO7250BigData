@@ -5,33 +5,33 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class AverageReducer extends Reducer<Text, AverageCountTuple, Text, AverageCountTuple> {
+public class AverageReducer extends Reducer<Text, AvgDisTimeTuple, Text, AvgDisTimeTuple> {
 
-	private AverageCountTuple tuple = new AverageCountTuple();
+	private AvgDisTimeTuple avgDistTimeTuple = new AvgDisTimeTuple();
 
 	@Override
-	protected void reduce(Text key, Iterable<AverageCountTuple> values, Context context)
+	protected void reduce(Text key, Iterable<AvgDisTimeTuple> values, Context context)
 			throws IOException, InterruptedException {
 
-		int totalFlight = 0;
-		int totalDist = 0;
-		int totalAirTime = 0;
+		int totalFlights = 0;
+		int totalDistance = 0;
+		int totalAirTimes = 0;
 
-		for (AverageCountTuple dt : values) {
-			totalFlight += dt.getFlightCount();
-			totalDist += dt.getDistCount();
-			totalAirTime += dt.getAirTime();
+		for (AvgDisTimeTuple dt : values) {
+			totalFlights += dt.getTotalFlights();
+			totalDistance += dt.getTotalDistance();
+			totalAirTimes += dt.getTotalAirtime();
 		}
 
-		double avgDist = (double) totalDist / totalFlight;
-		double avgAirTime = (double) totalAirTime / totalFlight;
+		double avgDist = (double) totalDistance / totalFlights;
+		double avgAirTime = (double) totalAirTimes / totalFlights;
 
-		tuple.setAirTime(totalAirTime);
-		tuple.setDistCount(totalDist);
-		tuple.setFlightCount(totalFlight);
-		tuple.setAverageDist(avgDist);
-		tuple.setAverageAirTime(avgAirTime);
+		avgDistTimeTuple.setAvgAirTime(totalAirTimes);
+		avgDistTimeTuple.setTotalDistance(totalDistance);
+		avgDistTimeTuple.setTotalFlights(totalFlights);
+		avgDistTimeTuple.setAvgDistance(avgDist);
+		avgDistTimeTuple.setAvgAirTime(avgAirTime);
 
-		context.write(key, tuple);
+		context.write(key, avgDistTimeTuple);
 	}
 }
