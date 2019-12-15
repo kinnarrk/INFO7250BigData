@@ -28,30 +28,30 @@ public class AverageMain {
 		}
 
 		// Create a new Job
-		Job job = Job.getInstance(conf, "wordcount");
-		job.setJarByClass(AverageMain.class);
+		Job job1 = Job.getInstance(conf, "Average Distance and Airtime of Carrier");
+		job1.setJarByClass(AverageMain.class);
 
 		// Specify various job-specific parameters
-		job.setJobName("myjob");
+		job1.setJobName("Average Distance and Airtime Carrier");
 
-		FileInputFormat.addInputPath(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, output);
+		FileInputFormat.addInputPath(job1, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job1, output);
 
-		job.setInputFormatClass(TextInputFormat.class);
-		job.setOutputFormatClass(TextOutputFormat.class);
+		job1.setInputFormatClass(TextInputFormat.class);
+		job1.setOutputFormatClass(TextOutputFormat.class);
 
-		job.setMapOutputKeyClass(Text.class);
-		job.setMapOutputValueClass(AverageCountTuple.class);
+		job1.setMapOutputKeyClass(Text.class);
+		job1.setMapOutputValueClass(AvgDisTimeTuple.class);
 
-		job.setMapperClass(AverageMapper.class);
-		job.setCombinerClass(AverageCombiner.class);
-		job.setReducerClass(AverageReducer.class);
+		job1.setMapperClass(AverageMapper.class);
+		job1.setCombinerClass(AverageCombiner.class);
+		job1.setReducerClass(AverageReducer.class);
 
-		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(AverageCountTuple.class);
+		job1.setOutputKeyClass(Text.class);
+		job1.setOutputValueClass(AvgDisTimeTuple.class);
 
 		// Submit the job, then poll for progress until the job is complete
-		System.exit(job.waitForCompletion(true) ? 0 : 1);
+		System.exit(job1.waitForCompletion(true) ? 0 : 1);
 
 	}
 }

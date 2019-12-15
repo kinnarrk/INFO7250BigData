@@ -5,32 +5,32 @@ import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
 
-public class AverageMapper extends Mapper<Object, Text, Text, AverageCountTuple> {
+public class AverageMapper extends Mapper<Object, Text, Text, AvgDisTimeTuple> {
 
-	private AverageCountTuple tuple = new AverageCountTuple();
+	private AvgDisTimeTuple avgDistTimeTuple = new AvgDisTimeTuple();
 
 	@Override
 	protected void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-		String[] tokens = value.toString().split(",");
+		String[] data = value.toString().split(",");
 
-		if (tokens[0].equals("Year"))
+		if (data[0].equals("Year"))
 			return;
 
-		String carrier = tokens[8];
-		int dist = 0;
-		int flightTime = 0;
+		String carrierCode = data[8];
+		int distance = 0;
+		int airTime = 0;
 
 		try {
-			dist = Integer.parseInt(tokens[18]);
+			distance = Integer.parseInt(data[18]);
 
-			flightTime = Integer.parseInt(tokens[6]);
+			airTime = Integer.parseInt(data[6]);
 		} catch (Exception e) {
 			return;
 		}
-		tuple.setFlightCount(1);
-		tuple.setDistCount(dist);
-		tuple.setAirTime(flightTime);
+		avgDistTimeTuple.setTotalFlights(1);
+		avgDistTimeTuple.setTotalDistance(distance);
+		avgDistTimeTuple.setTotalAirtime(airTime);
 
-		context.write(new Text(carrier), tuple);
+		context.write(new Text(carrierCode), avgDistTimeTuple);
 	}
 }

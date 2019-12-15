@@ -4,28 +4,28 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 
-public class RMSCombiner extends Reducer<Text, RMSCountTuple, Text, RMSCountTuple> {
+public class RMSCombiner extends Reducer<Text, RMSTuple, Text, RMSTuple> {
 
-	private RMSCountTuple res = new RMSCountTuple();
+	private RMSTuple rmsTupple = new RMSTuple();
 
 	@Override
-	protected void reduce(Text key, Iterable<RMSCountTuple> values, Context context)
+	protected void reduce(Text key, Iterable<RMSTuple> values, Context context)
 			throws IOException, InterruptedException {
 
-		int total = 0;
-		int arrDelay = 0;
-		int depDelay = 0;
+		int totalFlights = 0;
+		int arrivalDelay = 0;
+		int departureDelay = 0;
 
-		for (RMSCountTuple tup : values) {
-			total += tup.getTotalFlight();
-			arrDelay += tup.getArrDelay();
-			depDelay += tup.getDepDelay();
+		for (RMSTuple tupple : values) {
+			totalFlights += tupple.getTotalFlights();
+			arrivalDelay += tupple.getArrivalDelay();
+			departureDelay += tupple.getDepartureDelay();
 		}
 
-		res.setTotalFlight(total);
-		res.setArrDelay(arrDelay);
-		res.setDepDelay(depDelay);
+		rmsTupple.setTotalFlights(totalFlights);
+		rmsTupple.setArrivalDelay(arrivalDelay);
+		rmsTupple.setDepartureDelay(departureDelay);
 
-		context.write(key, res);
+		context.write(key, rmsTupple);
 	}
 }

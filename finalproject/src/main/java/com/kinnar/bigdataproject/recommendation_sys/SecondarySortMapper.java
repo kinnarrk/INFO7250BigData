@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.kinnar.bigdataproject.recommendation_sys;
 
 import org.apache.hadoop.io.LongWritable;
@@ -11,23 +6,21 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
 
-public class SecondarySortMapper extends Mapper<LongWritable, Text, CompositeKey, NullWritable> {
+public class SecondarySortMapper extends Mapper<LongWritable, Text, CompositeKeyMr, NullWritable> {
 
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-		// To change body of generated methods, choose Tools | Templates.
 
 		String[] tokens = value.toString().split("\t", 2);
 
 		try {
-			String srcDest = tokens[0];
-			String carrInfo = tokens[1];
+			String sourceDestination = tokens[0];
+			String carrierInformation = tokens[1];
 
-			CompositeKey coKey = new CompositeKey(srcDest, carrInfo);
+			CompositeKeyMr compositeKeyMr = new CompositeKeyMr(sourceDestination, carrierInformation);
 
-			context.write(coKey, NullWritable.get());
-		} catch (Exception e) {
-			e.getStackTrace();
+			context.write(compositeKeyMr, NullWritable.get());
+		} catch (Exception e) {			
 		}
 
 	}
